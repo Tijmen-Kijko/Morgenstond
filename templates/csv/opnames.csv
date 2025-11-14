@@ -1,0 +1,2 @@
+Opname_ID,Patiënt_ID,Opnamedatum,Ontslagdatum,Kamer_ID,Behandelcode,Omschrijving,Verpleegkundige_ID
+O001,P001,2025-11-01,2025-11-05,K101,B001,Kijkoperatie knie,M001

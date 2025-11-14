@@ -1,0 +1,133 @@
+{
+	"tables": [
+		{
+			"name": "Patiënten",
+			"fields": [
+				{"name": "Patiënt_ID", "type": "text"},
+				{"name": "Voornaam", "type": "text"},
+				{"name": "Achternaam", "type": "text"},
+				{"name": "Geboortedatum", "type": "date"},
+				{"name": "Geslacht", "type": "singleSelect", "options": ["M", "V", "X"]},
+				{"name": "BSN", "type": "text"},
+				{"name": "Huisarts_ID", "type": "link", "linkTable": "Huisartsen"}
+			],
+			"records": [
+				{
+					"Patiënt_ID": "P001",
+					"Voornaam": "Jan",
+					"Achternaam": "De Vries",
+					"Geboortedatum": "1980-04-12",
+					"Geslacht": "M",
+					"BSN": "123456789",
+					"Huisarts_ID": ["H001"]
+				}
+			]
+		},
+		{
+			"name": "Huisartsen",
+			"fields": [
+				{"name": "Huisarts_ID", "type": "text"},
+				{"name": "Naam", "type": "text"},
+				{"name": "Praktijkadres", "type": "text"},
+				{"name": "Telefoon", "type": "text"}
+			],
+			"records": [
+				{"Huisarts_ID": "H001", "Naam": "Mevr. A. Jansen", "Praktijkadres": "Hoofdstraat 1", "Telefoon": "1234567890"}
+			]
+		},
+		{
+			"name": "Medewerkers",
+			"fields": [
+				{"name": "Medewerker_ID", "type": "text"},
+				{"name": "Voornaam", "type": "text"},
+				{"name": "Achternaam", "type": "text"},
+				{"name": "Functie", "type": "text"},
+				{"name": "Registratienummer", "type": "text"},
+				{"name": "Specialisatie", "type": "text"},
+				{"name": "Afdelingen_IDS", "type": "text"}
+			],
+			"records": [
+				{"Medewerker_ID": "M001", "Voornaam": "Els", "Achternaam": "Vermeulen", "Functie": "Verpleegkundige", "Registratienummer": "REG123", "Specialisatie": "IC-verpleegkundige", "Afdelingen_IDS": "A01;A02"}
+			]
+		},
+		{
+			"name": "Afdelingen",
+			"fields": [
+				{"name": "Afdeling_ID", "type": "text"},
+				{"name": "Naam", "type": "text"}
+			],
+			"records": [
+				{"Afdeling_ID": "A01", "Naam": "Cardiologie"},
+				{"Afdeling_ID": "A02", "Naam": "Intensive Care"}
+			]
+		},
+		{
+			"name": "Kamers",
+			"fields": [
+				{"name": "Kamer_ID", "type": "text"},
+				{"name": "Kamercode", "type": "text"},
+				{"name": "Beschrijving", "type": "text"}
+			],
+			"records": [
+				{"Kamer_ID": "K101", "Kamercode": "Kamer 101", "Beschrijving": "Hoofdverblijf"}
+			]
+		},
+		{
+			"name": "Opnames",
+			"fields": [
+				{"name": "Opname_ID", "type": "text"},
+				{"name": "Patiënt_ID", "type": "link", "linkTable": "Patiënten"},
+				{"name": "Opnamedatum", "type": "date"},
+				{"name": "Ontslagdatum", "type": "date"},
+				{"name": "Kamer_ID", "type": "link", "linkTable": "Kamers"},
+				{"name": "Behandelcode", "type": "text"},
+				{"name": "Omschrijving", "type": "text"},
+				{"name": "Verpleegkundige_ID", "type": "link", "linkTable": "Medewerkers"}
+			],
+			"records": [
+				{"Opname_ID": "O001", "Patiënt_ID": ["P001"], "Opnamedatum": "2025-11-01", "Ontslagdatum": "2025-11-05", "Kamer_ID": ["K101"], "Behandelcode": "B001", "Omschrijving": "Kijkoperatie knie", "Verpleegkundige_ID": ["M001"]}
+			]
+		},
+		{
+			"name": "Behandelingen",
+			"fields": [
+				{"name": "Behandel_ID", "type": "text"},
+				{"name": "Opname_ID", "type": "link", "linkTable": "Opnames"},
+				{"name": "Behandelcode", "type": "text"},
+				{"name": "Omschrijving", "type": "text"},
+				{"name": "Behandeldatum", "type": "date"},
+				{"name": "Arts_ID", "type": "text"}
+			],
+			"records": [
+				{"Behandel_ID": "B001", "Opname_ID": ["O001"], "Behandelcode": "B001", "Omschrijving": "Kijkoperatie knie", "Behandeldatum": "2025-11-02", "Arts_ID": "M002"}
+			]
+		},
+		{
+			"name": "Medicaties",
+			"fields": [
+				{"name": "Medicatie_ID", "type": "text"},
+				{"name": "Opname_ID", "type": "link", "linkTable": "Opnames"},
+				{"name": "MedicatieNaam", "type": "text"},
+				{"name": "Dosis", "type": "text"},
+				{"name": "Toedieningsdatum", "type": "date"},
+				{"name": "Verpleegkundige_ID", "type": "link", "linkTable": "Medewerkers"}
+			],
+			"records": [
+				{"Medicatie_ID": "Med001", "Opname_ID": ["O001"], "MedicatieNaam": "Paracetamol 500mg", "Dosis": "500mg", "Toedieningsdatum": "2025-11-02", "Verpleegkundige_ID": ["M001"]}
+			]
+		},
+		{
+			"name": "Kamerwisselingen",
+			"fields": [
+				{"name": "Verblijf_ID", "type": "text"},
+				{"name": "Opname_ID", "type": "link", "linkTable": "Opnames"},
+				{"name": "Kamer_ID", "type": "link", "linkTable": "Kamers"},
+				{"name": "Begin_datum", "type": "date"},
+				{"name": "Einde_datum", "type": "date"}
+			],
+			"records": [
+				{"Verblijf_ID": "V001", "Opname_ID": ["O001"], "Kamer_ID": ["K101"], "Begin_datum": "2025-11-01", "Einde_datum": "2025-11-03"}
+			]
+		}
+	]
+}
